@@ -1,0 +1,5 @@
+-e
+--show-itemcount
+--show-hidden
+--show-percent
+--color dark

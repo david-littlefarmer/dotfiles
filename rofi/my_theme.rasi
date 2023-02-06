@@ -1,0 +1,47 @@
+* {
+    highlight: bold italic;
+    scrollbar: true;
+    /* Gruvbox dark colors */
+    base16-black:           #181818;
+    base16-grey:            #282828;
+    base16-white:           #b8b8b8;
+    base16-red:             #ab4642;
+    base16-green:           #a1b56c;
+    base16-yellow:          #dc9656;
+    base16-blue:            #7cafc2;
+
+    /* Theme colors */
+    background:                  @base16-black;
+    background-color:            @background;
+    foreground:                  @base16-white;
+    border-color:                @base16-red;
+    separatorcolor:              @border-color;
+    scrollbar-handle:            @border-color;
+
+    normal-background:           @background;
+    normal-foreground:           @foreground;
+    alternate-normal-background: @base16-grey;
+    alternate-normal-foreground: @foreground;
+    selected-normal-background:  @base16-red;
+    selected-normal-foreground:  @base16-white;
+
+    active-background:           @base16-yellow;
+    active-foreground:           @background;
+    alternate-active-background: @active-background;
+    alternate-active-foreground: @active-foreground;
+    selected-active-background:  @base16-red;
+    selected-active-foreground:  @active-foreground;
+
+    urgent-background:           @base16-red;
+    urgent-foreground:           @background;
+    alternate-urgent-background: @urgent-background;
+    alternate-urgent-foreground: @urgent-foreground;
+    selected-urgent-background:  @base16-red;
+    selected-urgent-foreground:  @urgent-foreground;
+
+    show-icons: true;
+    icon-theme: "Numix-Circle";
+}
+
+@import "gruvbox-common.rasi"
+

@@ -1,0 +1,6 @@
+configuration {
+	modi: "window,run,ssh,drun,filebrowser";
+	show-icons: true;
+	ssh-command: "uxterm -e "{ssh-client} {host}"";
+}
+@theme "~/.config/rofi/my_theme.rasi"

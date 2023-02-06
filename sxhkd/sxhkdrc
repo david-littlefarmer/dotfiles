@@ -1,0 +1,154 @@
+# UXTerm with tmux 
+super + Return
+    alacritty -e tmux attach
+# UXTerm
+super + ctrl + Return
+    alacritty
+# Firefox
+super + w
+    firefox
+
+# program launcher
+super + space
+    rofi -show drun
+
+# Show help
+super + /
+    sxhkd-help
+
+super + Escape
+    ~/.config/polybar/launch.sh; pkill -x sxhkd; sxhkd &; notify-send 'sxhkd, polybar' 'Reloaded sxhkd config and polybar'
+
+# file manager
+super + e
+  thunar
+
+# lock
+super + F2
+  sflock -f fixed
+
+# sleep
+super + F5
+  sflock -f fixed & systemctl suspend
+
+# kill dunst
+super + d
+    killall dunst; notify-send 'Title 🧻' 'And this is body'
+
+# keyboard layout
+super + alt + space
+  xkb-switch -n
+  
+# print screens #
+#==============#
+
+Print
+  flameshot gui
+
+Print + shift
+  flameshot screen
+
+
+# bspwm hotkeys #
+#===============#
+
+# quit bspwm normally
+super + alt + Escape
+  bspc quit 1 
+
+super + alt + r
+  bspc wm -r
+
+# close and kill
+super + {_,shift + }q
+  bspc node -{c,k}
+
+# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
+super + y
+  bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+
+# swap the current node and the biggest node
+super + g
+  bspc node -s biggest
+
+
+# state/flags #
+#=============#
+
+# set the window state
+super + {t,shift + t,s,f,m}
+  bspc node -t {tiled,pseudo_tiled,floating,fullscreen,monocle}
+
+# set the node flags
+super + ctrl + {x,y,z}
+  bspc node -g {locked,sticky,private}
+
+
+# focus/swap #
+#============#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+  bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+  bspc node -f @{parent,brother,first,second}
+
+# focus the last node/desktop
+super + {grave,Tab}
+  bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+  bspc wm -h off; \
+  bspc node {older,newer} -f; \
+  bspc wm -h on
+
+# focus or send to the given desktop
+super + {1-6}
+  bspc desktop -f '^{1-6}'
+
+super + shift + {1-6}
+  bspc node -d '^{1-6}' --follow
+
+super + {7,8,9,0}
+  bspc desktop -f '^6'
+
+super + shift + {7,8,9,0}
+  bspc node -d '^6' --follow
+
+# preselect #
+#===========#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+  bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+  bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+  bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+  bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+
+# resize tiled/floating #
+#=======================#
+
+# expand the tiled space in the given direction
+super + alt + {h,j,k,l}
+  bspc node {@west -r -20,@south -r +20,@north -r -20,@east -r +20}
+
+# contract the tiled space in the given direction
+super + alt + shift + {h,j,k,l}
+  bspc node {@east -r -20,@north -r +20,@south -r -20,@west -r +20}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+  xdo move {-x -20,-y +20,-y -20,-x +20}
