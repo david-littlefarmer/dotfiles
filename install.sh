@@ -19,67 +19,65 @@ print_box() {
 print_box "set ZSH"
 # SET ZSH AS DEFAULT
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-chsh -s $(which zsh)
+#chsh -s $(which zsh)
 
 print_box "Set config links"
-# ZSHENV
-ZSHENV=~/.zshenv
-if [ -f "$ZSHENV" ]; then
-	echo "Link exists  $ZSHENV"
-else
-	ln -s ~/.config/zsh/.zshenv $ZSHENV
-	echo "Link created $ZSHENV"
-fi
 
-# XINITRC
-XINITRC=~/.xinitrc
-if [ -f "$XINITRC" ]; then
-	echo "Link exists  $XINITRC"
-else
-	ln -s ~/.config/x/xinitrc $XINITRC
-	chmod +x $XINITRC
-	echo "Link created $XINITRC"
-fi
+create_symlink() {
+	source_file=$1
+	link=$2
 
-# XRESOURCES
-XRESOURCES=~/.Xresources
-if [ -f "$XRESOURCES" ]; then
-	echo "Link exists  $XRESOURCES"
-else
-	ln -s ~/.config/x/Xresources $XRESOURCES
-	echo "Link created $XRESOURCES"
-fi
+	if [ -L $link ]; then
+		target=$(readlink -f $link)
+		if [ $target != $source_file ]; then
+			echo -e "\e[1;31mDifferent link exists\e[0m \e[1;34m$target\e[0m \e[1;33m<-\e[0m \e[1;34m$link\e[0m"
+			sudo ln -is $source_file $link
+		else
+			echo -e "\e[1;32mLink already exists\e[0m \e[1;34m$source_file\e[0m \e[1;33m<-\e[0m \e[1;34m$link\e[0m"
+		fi
+	elif [ -f $link ]; then
+		echo -e "\e[1;31mFile exists\e[0m \e[1;34m$link\e[0m"
+		rm -i $link
+		ln -s $source_file $link
+	elif [ -d $link ]; then
+		echo -e "\e[1;31mDirectory already exists\e[0m \e[1;34m$link\e[0m"
+		echo -e "Do you want to delete it and replace it with a symbolic link to \e[1;34m$source_file\e[0m? (y/n)"
+		read choice
+		case $choice in
+		y | Y)
+			rm -rf $link
+			ln -s $source_file $link
+			echo -e "\e[1;32mCreated\e[0m \e[1;34m$source_file\e[0m \e[1;33m<-\e[0m \e[1;34m$link\e[0m"
+			;;
+		esac
+	else
+		ln -is $source_file $link
+		echo -e "\e[1;32mCreated\e[0m \e[1;34m$source_file\e[0m \e[1;33m<-\e[0m \e[1;34m$link\e[0m"
+	fi
+}
 
-# XBINDKEYSRC
-XBINDKEYSRC=~/.xbindkeysrc
-if [ -f "$XBINDKEYSRC" ]; then
-	echo "Link exists  $XBINDKEYSRC"
-else
-	ln -s ~/.config/x/xbindkeysrc $XBINDKEYSRC
-	echo "Link created $XBINDKEYSRC"
-fi
+# Create symbolic links
+create_symlink "$PWD/zsh/.zshenv" "$HOME/.zshenv"
+create_symlink "$PWD/x/xinitrc" "$HOME/.xinitrc"
+create_symlink "$PWD/x/Xresources" "$HOME/.Xresources"
+create_symlink "$PWD/x/xbindkeysrc" "$HOME/.xbindkeysrc"
+create_symlink "$PWD/x/00-keyboard.conf" "/etc/X11/xorg.conf.d/00-keyboard.conf"
+create_symlink "$PWD/cdm/cdmrc" "$HOME/.cdmrc"
 
-# KEYBOARD LAYOUT
-XKEYBOARD=/etc/X11/xorg.conf.d/00-keyboard.conf
-if [ -f "$XKEYBOARD" ]; then
-	echo "Link exists  $XKEYBOARD"
-else
-	sudo ln -s ~/.config/x/00-keyboard.conf $XKEYBOARD
-	echo "Link created $XKEYBOARD"
-fi
+create_symlink "$PWD/alacritty" "$HOME/.config/alacritty"
+create_symlink "$PWD/bspwm" "$HOME/.config/bspwm"
+create_symlink "$PWD/dunst" "$HOME/.config/dunst"
+create_symlink "$PWD/ncdu" "$HOME/.config/ncdu"
+create_symlink "$PWD/nvim" "$HOME/.config/nvim"
+create_symlink "$PWD/polybar" "$HOME/.config/polybar"
+create_symlink "$PWD/rofi" "$HOME/.config/rofi"
+create_symlink "$PWD/sxhkd" "$HOME/.config/sxhkd"
+create_symlink "$PWD/tmux" "$HOME/.config/tmux"
+create_symlink "$PWD/zsh" "$HOME/.config/zsh"
 
-# CDMRC
-CDMRC=~/.cdmrc
-if [ -f "$CDMRC" ]; then
-	echo "Link exists  $CDMRC"
-else
-	ln -s ~/.config/cdm/cdmrc $CDMRC
-	echo "Link created $CDMRC"
-fi
-
-# YAY
+# Yay
 print_box "Installing Yay"
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay-bin.git

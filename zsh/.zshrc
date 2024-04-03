@@ -62,8 +62,8 @@ alias grshh1='git reset --hard HEAD~1'
 
 alias sssh='eval "$(ssh-agent)"; ssh-add ~/.ssh/id_ed25519'
 
-alias devbox-up='cd ~/dev/horizon/devbox && make up && cd -'
-alias devbox-down='cd ~/dev/horizon/devbox && make down && cd -'
+alias devbox-up='cd ~/dev/0xsequence/devbox && make up && cd -'
+alias devbox-down='cd ~/dev/0xsequence/devbox && make down && cd -'
 
 ## get rid of command not found ##
 alias cd..='cd ..'
