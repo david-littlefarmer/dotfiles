@@ -31,15 +31,31 @@ fi
 
 #  ALIASES  #
 #-----------#
-alias l='ls -hlaG --color'
-alias ll='ls -hlaG --color'
-alias ls='ls -h --color'
+# ls -> exa
+alias l='eza -hla --time-style "+%y-%m-%d %H:%M"'
+alias ll='eza -hlao --git --total-size --time-style "+%y-%m-%d %H:%M"'
+alias ls='eza'
+
+# cat -> bat
+export BAT_THEME="base16"
+alias cat='bat'
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
+
+alias curl='curlie'
+
+export MYVIMRC=$HOME/.config/nvim/init.lua
 alias v='nvim'
-alias vim='nvim'
-alias mk='mkdir -p'
+
+alias mkdir="mkdir -pv"
+alias mk='mkdir'
+
 alias gxx='g++ -Wall -pedantic -Wextra --std=c++11 -g'
+
 alias gxo='g++ -Wall -pedantic -Wextra --std=c++11 -g -o'
 alias wttr='curl "wttr.in/prague?2fQm"'
+
 alias ip='ip -color=auto'
 alias grep='grep --color=auto'
 alias bc="bc -l"
@@ -90,9 +106,15 @@ eval "$(zoxide init --cmd cd zsh)"
 
 source <(kubectl completion zsh)
 
-# export GOPATH=$HOME/go
-
+# Source ASDF set-env script for Go
 . ~/.asdf/plugins/go/set-env.zsh
+. ~/.asdf/asdf.sh
+
+# go
+export GOPATH=$(asdf where go)/packages
+export GOROOT=$(asdf where go)/go
+export PATH="${PATH}:$(go env GOPATH)/bin"
+
 # Use the Go module mirror and checksum database by default.
 # See https://proxy.golang.org for details.
 export GOPROXY='https://proxy.golang.org,direct'
@@ -102,7 +124,7 @@ export GOSUMDB='sum.golang.org'
 # See https://go.dev/doc/toolchain for details.
 export GOTOOLCHAIN=auto
 
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+# export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$GOROOT/packages/bin
 export PATH=$PATH:'/home/lfccmbr/go/bin'
 export GOPRIVATE="github.com/golang-cz"
 

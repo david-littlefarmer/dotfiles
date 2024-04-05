@@ -72,6 +72,7 @@ pgrep -x sxhkd >/dev/null || sxhkd &
 xsetroot -cursor_name left_ptr -solid black
 setxkbmap -layout us,cz -variant ,qwerty &
 xbindkeys &
+xautolock -time 5 -locker "sflock -f fixed" -detectsleep &
 
 bspc rule -a "Slack" desktop='^3'
 bspc rule -a "discord" desktop='^3'

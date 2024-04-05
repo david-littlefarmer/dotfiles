@@ -33,8 +33,8 @@ local keymaps = function(_, bufnr)
     nmap('J', 'mzJ`z', 'Append bellow line to EOL')
 
 
-    nmap('<C-d>', '<C-d>zz')
-    nmap('<C-u>', '<C-u>zz')
+    -- nmap('<C-d>', '<C-d>zz')
+    -- nmap('<C-u>', '<C-u>zz')
     nmap('n', 'nzzzv', 'Next search with centering')
     nmap('N', 'Nzzzv', 'Previous search with centering')
     nmap('<C-k>', '<cmd>cnext<CR>zz')
