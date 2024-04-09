@@ -28,7 +28,7 @@ return {
                             unusedwrite = true,
                             useany = true,
                             unusedparams = true,
-                            shadow = true,
+                            shadow = false,
                             fieldalignment = false,
                         },
                         staticcheck = true,

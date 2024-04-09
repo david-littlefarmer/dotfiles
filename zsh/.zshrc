@@ -70,7 +70,7 @@ alias tss='sudo tailscale status'
 
 alias goclean='go clean -cache; go clean -modcache; go clean -testcache'
 
-alias gr='cd $(git rev-parse --show-cdup)'
+alias grd='cd $(git rev-parse --show-cdup)'
 alias gpn='git push --no-verify'
 alias gpfn='git push --force-with-lease --no-verify'
 alias grssh1='git reset --soft HEAD~1'
