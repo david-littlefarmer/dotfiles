@@ -3,6 +3,7 @@
 return {
     "david-littlefarmer/ridl.nvim",
     config = function()
+        vim.cmd('autocmd BufRead,BufNewFile *.ridl set filetype=ridl')
         vim.cmd('autocmd BufRead,BufNewFile *.ridl lua require("ridl").setup()')
     end,
 }

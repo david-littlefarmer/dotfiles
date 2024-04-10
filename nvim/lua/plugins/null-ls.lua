@@ -6,6 +6,19 @@ return {
     config = function()
         local null_ls = require('null-ls')
         local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+
+        local ridl_forrmater = {
+            name = "ridlfmt",
+            filetypes = { "ridl" },
+            method = null_ls.methods.FORMATTING,
+            generator = null_ls.formatter({
+                command = "ridlfmt",
+                args = { "-s" },
+                to_stdin = true,
+                from_stderr = true,
+            }),
+        }
+
         local opts = {
             sources = {
                 -- Go
@@ -17,6 +30,9 @@ return {
                     },
                 }),
                 -- null_ls.builtins.diagnostics.revive,
+
+                -- RIDL
+                ridl_forrmater,
 
                 -- Bash
                 null_ls.builtins.formatting.shfmt,
@@ -46,8 +62,6 @@ return {
                 -- null_ls.builtins.code_actions.eslint_d,
 
                 -- null_ls.builtins.diagnostics.jsonlint,
-
-                null_ls.builtins.formatting.tidy,
             },
 
             on_attach = function(client, bufnr)
