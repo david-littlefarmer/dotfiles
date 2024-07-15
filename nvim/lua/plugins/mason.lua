@@ -36,7 +36,7 @@ return {
             sqlls = {},
             bashls = {},
             clangd = {},
-            jsonls = {},
+            -- jsonls = {},
             cssls = {},
             html = {},
             tsserver = {},

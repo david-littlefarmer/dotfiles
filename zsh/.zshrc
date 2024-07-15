@@ -81,6 +81,30 @@ alias sssh='eval "$(ssh-agent)"; ssh-add ~/.ssh/id_ed25519'
 alias devbox-up='cd ~/dev/0xsequence/devbox && make up && cd -'
 alias devbox-down='cd ~/dev/0xsequence/devbox && make down && cd -'
 
+function ksecret {
+  kubectl get secret "$1" -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
+}
+
+function replace {
+  git grep -l "$1" | xargs sed -i -e "s#$1#$2#g"
+}
+
+function port {
+  lsof -nP -i4TCP:$1 | grep LISTEN
+}
+
+function gitgrep() {
+	git grep "$*" || git grep $*
+}
+
+alias gg="gitgrep"
+
+function gitgrepi() {
+	git grep -i "$*" || git -i grep $*
+}
+
+alias ggi="gitgrepi"
+
 ## get rid of command not found ##
 alias cd..='cd ..'
  
@@ -93,6 +117,7 @@ alias .2='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../../'
+
 
 autoload -Uz compinit && compinit
 

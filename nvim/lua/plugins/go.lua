@@ -14,7 +14,7 @@ return {
         opts = {
             textobjects = false,
             lsp_keymaps = false,
-            lsp_codelens = false,
+            lsp_codelens = true,
             lsp_inlay_hints = {
                 enable = true,
                 style = 'eol',
