@@ -12,9 +12,17 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
 -- vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- Tabs
+vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { desc = 'Open New Tab' })
+vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { desc = 'Close Current Tab' })
+vim.keymap.set('n', '<leader>l', ':tabnext<CR>', { desc = 'Next Tab' })
+vim.keymap.set('n', '<leader>h', ':tabprev<CR>', { desc = 'Previous Tab' })
+
+vim.keymap.set('n', '<leader>sph', ':split<CR>', { desc = 'Split Window Horizontally' })
+vim.keymap.set('n', '<leader>spv', ':vsplit<CR>', { desc = 'Split Window Vertically' })
 
 local keymaps = function(_, bufnr)
     local nmap = function(keys, func, desc)
@@ -68,7 +76,7 @@ local keymaps = function(_, bufnr)
     nmap('<leader>dt', ':lua require("dapui").toggle()<CR>')
     nmap('<leader>dl', ':lua require"dap".run_last()<CR>')
     nmap('<leader>dr', ':lua require"dap".repl.open()<CR>')
-    nmap('<leader>hb', ':Gitsigns blame_line<CR>')
+    nmap('<leader>gb', ':Gitsigns blame_line<CR>')
 
 
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
