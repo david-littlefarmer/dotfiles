@@ -35,6 +35,10 @@ return {
                     },
                 },
             },
+            diagnostic = {
+                underline = true,
+                update_in_insert = true,
+            },
             dap_debug = true,
             dap_debug_ui = {
                 defaults = {

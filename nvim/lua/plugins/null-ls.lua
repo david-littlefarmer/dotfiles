@@ -48,20 +48,16 @@ return {
 
                 -- JS, TS
                 null_ls.builtins.formatting.prettier.with({
-                    extra_args = function(_)
-                        if vim.fs.dirname(vim.fs.find({ '.prettierrc', '.prettierrc.js' }, { upward = true })[1]) then
-                            return nil
-                        end
-
-                        return {} -- your extra args
-                    end,
-
                     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "markdown", "markdown.mdx", "graphql", "handlebars" }
                 }),
 
                 -- null_ls.builtins.code_actions.eslint_d,
 
                 -- null_ls.builtins.diagnostics.jsonlint,
+
+                -- Solidity
+                null_ls.builtins.diagnostics.solhint,
+                null_ls.builtins.formatting.forge_fmt
             },
 
             on_attach = function(client, bufnr)

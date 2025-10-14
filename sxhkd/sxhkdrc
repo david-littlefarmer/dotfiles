@@ -12,10 +12,6 @@ super + w
 super + space
     rofi -show drun
 
-# Show help
-super + /
-    sxhkd-help
-
 super + Escape
     ~/.config/polybar/launch.sh; pkill -x sxhkd; sxhkd &; notify-send 'sxhkd, polybar' 'Reloaded sxhkd config and polybar'
 
@@ -25,7 +21,7 @@ super + e
 
 # lock
 super + F2
-  sflock -f fixed
+  betterlockscreen -l dim
 
 # sleep
 super + F5
@@ -53,10 +49,10 @@ Print + shift
 #===============#
 
 # quit bspwm normally
-super + alt + Escape
+super + alt + ctrl + Escape
   bspc quit 1 
 
-super + alt + r
+super + alt + ctrl + r
   bspc wm -r
 
 # close and kill
@@ -106,17 +102,17 @@ super + {o,i}
   bspc wm -h on
 
 # focus or send to the given desktop
-super + {1-6}
-  bspc desktop -f '^{1-6}'
+super + {1-7}
+  bspc desktop -f '^{1-7}'
 
-super + shift + {1-6}
-  bspc node -d '^{1-6}' --follow
+super + shift + {1-7}
+  bspc node -d '^{1-7}' --follow
 
-super + {7,8,9,0}
-  bspc desktop -f '^6'
+super + {8,9,0}
+  bspc desktop -f '^7'
 
-super + shift + {7,8,9,0}
-  bspc node -d '^6' --follow
+super + shift + {8,9,0}
+  bspc node -d '^7' --follow
 
 # preselect #
 #===========#
@@ -152,3 +148,8 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
   xdo move {-x -20,-y +20,-y -20,-x +20}
+
+# Layout #
+#========#
+super + alt + {1-7}
+  bsp-layout once {tall, rtall, wide, rwide, grid, rgrid, even}

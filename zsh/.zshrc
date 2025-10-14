@@ -54,7 +54,7 @@ alias mk='mkdir'
 alias gxx='g++ -Wall -pedantic -Wextra --std=c++11 -g'
 
 alias gxo='g++ -Wall -pedantic -Wextra --std=c++11 -g -o'
-alias wttr='curl "wttr.in/prague?2fQm"'
+alias wttr='curl "wttr.in/prague?fQm"'
 
 alias ip='ip -color=auto'
 alias grep='grep --color=auto'
@@ -69,6 +69,8 @@ alias tsd='echo "Tailscale down"; sudo tailscale down'
 alias tss='sudo tailscale status'
 
 alias goclean='go clean -cache; go clean -modcache; go clean -testcache'
+alias gotestdir='go test -json ./... | tparse --all --follow'
+alias gotestdircover='go test -cover -coverprofile=coverage.out -json ./... | tparse --all --follow && go tool cover -html=coverage.out && rm coverage.out'
 
 alias grd='cd $(git rev-parse --show-cdup)'
 alias gpn='git push --no-verify'
@@ -78,8 +80,10 @@ alias grshh1='git reset --hard HEAD~1'
 
 alias sssh='eval "$(ssh-agent)"; ssh-add ~/.ssh/id_ed25519'
 
-alias devbox-up='cd ~/dev/0xsequence/devbox && make up && cd -'
-alias devbox-down='cd ~/dev/0xsequence/devbox && make down && cd -'
+alias devbox-up='cd ~/dev/0xsequence/devops/devbox && make up && cd -'
+alias devbox-down='cd ~/dev/0xsequence/devops/devbox && make down && cd -'
+
+alias wsjtx='wsjtx --stylesheet :/qdarkstyle/style.qss'
 
 function ksecret {
   kubectl get secret "$1" -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
@@ -118,6 +122,15 @@ alias .3='cd ../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../../'
 
+function pulumi_stack_select {
+  if [[ $PWD/ = /home/lfccmbr/dev/0xsequence/devops/* ]]; then
+    pulumi stack select $1
+  else
+    echo "pulumi stack select $1 must be run in K8s repo" >&2
+  fi
+}
+
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 autoload -Uz compinit && compinit
 
@@ -131,14 +144,13 @@ eval "$(zoxide init --cmd cd zsh)"
 
 source <(kubectl completion zsh)
 
-# Source ASDF set-env script for Go
-. ~/.asdf/plugins/go/set-env.zsh
-. ~/.asdf/asdf.sh
+export ASDF_DATA_DIR="/home/lfccmbr/.asdf"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # go
-export GOPATH=$(asdf where go)/packages
-export GOROOT=$(asdf where go)/go
-export PATH="${PATH}:$(go env GOPATH)/bin"
+# export ASDF_GOLANG_MOD_VERSION=true
+# export GOPATH=$(asdf where golang)/packages
+# export GOROOT=$(asdf where golang)/go
 
 # Use the Go module mirror and checksum database by default.
 # See https://proxy.golang.org for details.
@@ -159,8 +171,6 @@ eval "$(direnv hook zsh)"
 
 source $ZDOTDIR/git.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-. /opt/asdf-vm/asdf.sh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.

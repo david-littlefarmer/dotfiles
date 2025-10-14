@@ -43,5 +43,5 @@
     icon-theme: "Numix-Circle";
 }
 
-@import "gruvbox-common.rasi"
+@import "gruvbox-common"
 

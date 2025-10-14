@@ -39,7 +39,7 @@ return {
             -- jsonls = {},
             cssls = {},
             html = {},
-            tsserver = {},
+            -- tsserver = {},
             pyright = {},
             taplo = {},
             yamlls = {},
