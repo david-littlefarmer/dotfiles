@@ -144,8 +144,9 @@ eval "$(zoxide init --cmd cd zsh)"
 
 source <(kubectl completion zsh)
 
-export ASDF_DATA_DIR="/home/lfccmbr/.asdf"
+export ASDF_DATA_DIR="~/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
 
 # go
 # export ASDF_GOLANG_MOD_VERSION=true
@@ -162,7 +163,7 @@ export GOSUMDB='sum.golang.org'
 export GOTOOLCHAIN=auto
 
 # export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$GOROOT/packages/bin
-export PATH=$PATH:'/home/lfccmbr/go/bin'
+export PATH=$PATH:$(go env GOPATH)/bin
 export GOPRIVATE="github.com/golang-cz"
 
 source /usr/share/zsh/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh
@@ -178,9 +179,12 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 eval "$(atuin init zsh)"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/lfccmbr/google-cloud-sdk/path.zsh.inc' ]; then . '/home/lfccmbr/google-cloud-sdk/path.zsh.inc'; fi
+export GPG_TTY=$(tty)
+
+# export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/lfccmbr/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/lfccmbr/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 

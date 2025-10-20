@@ -5,7 +5,6 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 if [ $(uname -n) = 'lf-pc' ]; then
     polybar lfccmbr-pc-HDMI-A-0 &
-    polybar lfccmbr-pc-HDMI-A-1 &
 fi
 
 if [ $(uname -n) = 'lf-t480s' ]; then

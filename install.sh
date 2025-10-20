@@ -63,7 +63,6 @@ create_symlink "$PWD/zsh/.zshenv" "$HOME/.zshenv"
 create_symlink "$PWD/x/xinitrc" "$HOME/.xinitrc"
 create_symlink "$PWD/x/Xresources" "$HOME/.Xresources"
 create_symlink "$PWD/x/xbindkeysrc" "$HOME/.xbindkeysrc"
-create_symlink "$PWD/x/00-keyboard.conf" "/etc/X11/xorg.conf.d/00-keyboard.conf"
 create_symlink "$PWD/cdm/cdmrc" "$HOME/.cdmrc"
 
 create_symlink "$PWD/alacritty" "$HOME/.config/alacritty"
@@ -79,12 +78,16 @@ create_symlink "$PWD/tmux" "$HOME/.config/tmux"
 create_symlink "$PWD/zsh" "$HOME/.config/zsh"
 
 # Yay
-print_box "Installing Yay"
-sudo pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay-bin.git
-cd yay-bin
-makepkg -si
-cd ..
+if ! command -v yay &> /dev/null; then
+    print_box "Installing Yay"
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/yay-bin.git
+    cd yay-bin
+    makepkg -si
+    cd ..
+else
+    print_box "Yay is already installed."
+fi
 
 # ASDF VM
 print_box "ASDF-VM"
@@ -92,35 +95,39 @@ yay -S --needed asdf-vm
 
 asdf plugin add duckdb https://github.com/asdf-community/asdf-duckdb.git
 asdf install duckdb latest
-asdf global duckdb latest
+asdf set -u duckdb latest
 
 asdf plugin add go https://github.com/kennyp/asdf-golang.git
 asdf install go latest
-asdf global go latest
+asdf set -u go latest
 
 asdf plugin add kubectl https://github.com/asdf-community/asdf-kubectl.git
 asdf install kubectl latest
-asdf global kubectl latest
+asdf set -u kubectl latest
 
 asdf plugin add lua https://github.com/Stratus3D/asdf-lua.git
 asdf install lua latest
-asdf global lua latest
+asdf set -u lua latest
 
 asdf plugin add neovim https://github.com/richin13/asdf-neovim.git
 asdf install neovim nightly
-asdf global neovim nightly
+asdf set -u neovim nightly
 
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf install nodejs latest
-asdf global nodejs latest
+asdf set -u nodejs latest
 
 asdf plugin add pnpm https://github.com/jonathanmorley/asdf-pnpm.git
 asdf install pnpm latest
-asdf global pnpm latest
+asdf set -u pnpm latest
 
 asdf plugin add yarn https://github.com/twuni/asdf-yarn.git
 asdf install yarn latest
-asdf global yarn latest
+asdf set -u yarn latest
+
+asdf plugin add rust
+asdf install rust latest
+asdf set -u rust latest
 
 # Neovim Lazy Sync
 print_box "Neovim Lazy Sync"

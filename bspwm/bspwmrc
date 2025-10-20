@@ -30,17 +30,6 @@ bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
 
-if [ $(uname -n) = 'lf-x250' ]; then
-    external_monitor=$(xrandr --query | grep '^DP-1')
-    if [[ $external_monitor = *disconnected* ]]; then
-        xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off
-        bspc monitor eDP-1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7
-    else
-        xrandr --output DP-1 --mode 3440x1440 --pos 0x0 --rotate normal --output eDP-1 --off
-        bspc monitor DP-1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7
-    fi
-fi
-
 if [ $(uname -n) = 'lf-t480s' ]; then
     external_monitor=$(xrandr --query | grep '^DP-2-1')
     if [[ -z "$external_monitor" ]] || [[ $external_monitor = *disconnected* ]]; then
@@ -53,9 +42,8 @@ if [ $(uname -n) = 'lf-t480s' ]; then
 fi
 
 if [ $(uname -n) = 'lf-pc' ]; then
-    xrandr HDMI-A-0 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-A-1 --mode 1920x1080 --pos 1920x0 --rotate normal
-    bspc monitor HDMI-A-0 -d $ws1 $ws2 $ws3
-    bspc monitor HDMI-A-1 -d $ws4 $ws5 $ws6 $ws7
+    xrandr HDMI-A-0 --mode 3440x1440 --pos 0x0 --rotate normal
+    bspc monitor HDMI-A-0 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7
 fi
 
 if [ $(uname -n) = 'lf-x200' ]; then
@@ -90,3 +78,4 @@ pgrep -x telegram >/dev/null || Telegram &
 pgrep -x slack >/dev/null || slack &
 pgrep -x solaar >/dev/null || solaar -w hide &
 pgrep -x unclutter >/dev/null || unclutter -idle 10 &
+pgrep -x dunst >/dev/null || dunst &
