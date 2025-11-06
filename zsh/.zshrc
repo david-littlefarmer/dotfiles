@@ -130,7 +130,7 @@ function pulumi_stack_select {
   fi
 }
 
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+# fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 autoload -Uz compinit && compinit
 
@@ -144,8 +144,9 @@ eval "$(zoxide init --cmd cd zsh)"
 
 source <(kubectl completion zsh)
 
-export ASDF_DATA_DIR="~/.asdf"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# export ASDF_DATA_DIR="~/.asdf"
+# export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export PATH="$HOME/.asdf/shims:$PATH"
 
 
 # go
