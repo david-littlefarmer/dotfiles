@@ -16,15 +16,6 @@ print_box() {
     echo "$line"
 }
 
-print_box "set ZSH"
-# SET ZSH AS DEFAULT
-
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-#chsh -s $(which zsh)
-
-print_box "Set config links"
-
 create_symlink() {
     source_file=$1
     link=$2
@@ -58,6 +49,15 @@ create_symlink() {
     fi
 }
 
+print_box "set ZSH"
+# SET ZSH AS DEFAULT
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+chsh -s $(which zsh)
+
+print_box "Set config links"
+
 # Create symbolic links
 create_symlink "$PWD/zsh/.zshenv" "$HOME/.zshenv"
 create_symlink "$PWD/x/xinitrc" "$HOME/.xinitrc"
@@ -81,10 +81,11 @@ create_symlink "$PWD/zsh" "$HOME/.config/zsh"
 if ! command -v yay &> /dev/null; then
     print_box "Installing Yay"
     sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay-bin.git
-    cd yay-bin
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
     makepkg -si
     cd ..
+    rm -rf ./yay
 else
     print_box "Yay is already installed."
 fi

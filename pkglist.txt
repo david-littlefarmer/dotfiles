@@ -132,4 +132,3 @@ xorg-xsetroot
 bat
 eza
 picom
-emptty
