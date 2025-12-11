@@ -46,6 +46,11 @@ if [ $(uname -n) = 'lf-pc' ]; then
     bspc monitor HDMI-A-0 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7
 fi
 
+if [ $(uname -n) = 'lf-t14g1' ]; then
+    xrandr eDP --mode 1920x1080 --pos 0x0 --rotate normal
+    bspc monitor eDP -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7
+fi
+
 if [ $(uname -n) = 'lf-x200' ]; then
     xrandr --output LVDS1 --primary --mode 1280x800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output DP3 --off --output HDMI1 --off --output HDMI2 --off --output VGA1 --off --output VIRTUAL1 --off
     bspc monitor LVDS1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7

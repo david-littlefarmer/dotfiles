@@ -182,6 +182,8 @@ eval "$(atuin init zsh)"
 
 export GPG_TTY=$(tty)
 
+export DISPLAY=:0
+
 # export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
