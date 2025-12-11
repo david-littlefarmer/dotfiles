@@ -184,6 +184,8 @@ export GPG_TTY=$(tty)
 
 export DISPLAY=:0
 
+eval "$(ruby ~/.local/try.rb init ~/src/tries)"
+
 # export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
