@@ -11,6 +11,10 @@ if [ $(uname -n) = 'lf-t14g1' ]; then
     polybar lfccmbr-t14g1-eDP &
 fi
 
+if [ $(uname -n) = 'kevin' ]; then
+    polybar lfccmbr-kevin-eDP1-0 &
+fi
+
 if [ $(uname -n) = 'lf-t480s' ]; then
     external_monitor=$(xrandr --query | grep '^DP-2-1')
     if [[ -z "$external_monitor" ]] || [[ $external_monitor = *disconnected* ]]; then
