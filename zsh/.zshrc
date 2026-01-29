@@ -184,7 +184,7 @@ export GPG_TTY=$(tty)
 
 export DISPLAY=:0
 
-eval "$(ruby ~/.local/try.rb init ~/src/tries)"
+eval "$(ruby ~/.local/try.rb init ~/dev/tries)"
 
 # export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
