@@ -78,10 +78,10 @@ alias gpfn='git push --force-with-lease --no-verify'
 alias grssh1='git reset --soft HEAD~1'
 alias grshh1='git reset --hard HEAD~1'
 
-alias sssh='eval "$(ssh-agent)"; ssh-add ~/.ssh/id_ed25519'
+alias sssh='ssh-add ~/.ssh/id_rsa'
 
-alias devbox-up='cd ~/dev/0xsequence/devops/devbox && make up && cd -'
-alias devbox-down='cd ~/dev/0xsequence/devops/devbox && make down && cd -'
+alias devbox-up='cd ~/dev/0xPolygon/devops/devbox && make up && cd -'
+alias devbox-down='cd ~/dev/0xPolygon/devops/devbox && make down && cd -'
 
 alias wsjtx='wsjtx --stylesheet :/qdarkstyle/style.qss'
 
@@ -165,7 +165,7 @@ export GOTOOLCHAIN=auto
 
 # export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$GOROOT/packages/bin
 export PATH=$PATH:$(go env GOPATH)/bin
-export GOPRIVATE="github.com/golang-cz"
+export GOPRIVATE="github.com/golang-cz,github.com/0xPolygon"
 
 source /usr/share/zsh/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh
 
@@ -186,6 +186,8 @@ export DISPLAY=:0
 
 eval "$(ruby ~/.local/try.rb init ~/dev/tries)"
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # export PATH="$HOME/google-cloud-sdk/bin:$PATH"
 
 if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
@@ -193,3 +195,6 @@ if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
+
+# opencode
+export PATH=/home/dsedlacek/.opencode/bin:$PATH

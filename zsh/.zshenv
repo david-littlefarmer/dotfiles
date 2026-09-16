@@ -17,3 +17,9 @@ export SAVEHIST=10000                   # Maximum events in history file
 # . "$HOME/.cargo/env"
 
 export PATH="$PATH:/home/lfccmbr/.config/.foundry/bin"
+
+# SSH agent (managed by systemd --user unit ssh-agent.service)
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# uv
+export PATH="/home/dsedlacek/.config/local/share/../bin:$PATH"

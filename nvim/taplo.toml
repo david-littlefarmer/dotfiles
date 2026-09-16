@@ -1,0 +1,17 @@
+# Global default Taplo (TOML) formatting config, applied via -c in
+# lua/plugins/mason.lua's taplo LSP `cmd` override. Any project can still
+# take precedence by keeping its own .taplo.toml — that flag would need
+# dropping there for auto-discovery to kick in instead of this global file.
+
+# taplo defaults `include` to **/*.toml, so TOML-shaped *.conf files (bpn-api's
+# etc/*.conf, OMSX's omsx.conf) are silently skipped even when the LSP client
+# is attached — see core/filetype.lua's content-sniffed toml filetype.
+include = ["**/*.toml", "**/*.conf"]
+
+[formatting]
+align_entries  = true
+indent_entries = true
+# Explicit, so TOML formatting stays 2-space regardless of the global
+# shiftwidth=4 in core/options.lua (vim.lsp.buf.format derives tabSize from
+# the buffer's shiftwidth when no explicit indent_string overrides it here).
+indent_string  = "  "

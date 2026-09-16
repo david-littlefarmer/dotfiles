@@ -12,6 +12,12 @@ return {
         ft = { 'go', 'gomod' },
         build = ':lua require("go.install").update_all_sync()',
         opts = {
+            -- asdf shim for gopls doesn't resolve inside nvim's env; use GOBIN directly
+            gopls_cmd = (function()
+                local gobin = vim.fn.trim(vim.fn.system('go env GOBIN 2>/dev/null'))
+                local bin = gobin ~= '' and (gobin .. '/gopls') or ''
+                return (bin ~= '' and vim.fn.executable(bin) == 1) and { bin } or nil
+            end)(),
             textobjects = false,
             lsp_keymaps = false,
             lsp_codelens = true,
@@ -28,10 +34,22 @@ return {
                             unusedwrite = true,
                             useany = true,
                             unusedparams = true,
+                            loopclosure = true,
                             shadow = false,
                             fieldalignment = false,
                         },
                         staticcheck = true,
+                        -- lets gopls use the right toolchain for Go 1.26 features (new pointer patterns, iter, etc.)
+                        env = {
+                            GOTOOLCHAIN = 'auto',
+                        },
+                        codelenses = {
+                            gc_details = true,
+                            generate = true,
+                            test = true,
+                            tidy = true,
+                            upgrade_dependency = true,
+                        },
                     },
                 },
             },

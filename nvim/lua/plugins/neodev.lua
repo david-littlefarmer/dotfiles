@@ -1,6 +1,11 @@
--- https://github.com/folke/neodev.nvim
--- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
+-- https://github.com/folke/lazydev.nvim
+-- Faster LuaLS setup for Neovim (replaces neodev.nvim)
 return {
-    'folke/neodev.nvim',
-    opts = {}
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+        library = {
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        },
+    },
 }

@@ -57,11 +57,10 @@ return {
 
                 -- Solidity
                 null_ls.builtins.diagnostics.solhint,
-                null_ls.builtins.formatting.forge_fmt
             },
 
             on_attach = function(client, bufnr)
-                if client.supports_method('textDocument/formatting') then
+                if client:supports_method('textDocument/formatting') then
                     vim.api.nvim_clear_autocmds({
                         group = augroup,
                         buffer = bufnr,
@@ -77,6 +76,10 @@ return {
                 end
             end
         }
+
+        if vim.fn.executable('forge') == 1 then
+            table.insert(opts.sources, null_ls.builtins.formatting.forge_fmt)
+        end
 
         null_ls.setup(opts)
     end

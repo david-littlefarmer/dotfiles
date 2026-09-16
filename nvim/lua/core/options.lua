@@ -23,16 +23,24 @@ o.ignorecase     = true
 o.smartcase      = true
 o.completeopt    = 'menuone,noselect'
 
-o.syntax = 'enable'
-o.compatible = false
 vim.cmd('filetype plugin on')
 
 
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+
+local gobin = vim.fn.trim(vim.fn.system('go env GOBIN 2>/dev/null'))
+if gobin ~= '' and not vim.tbl_contains(vim.split(vim.env.PATH or '', ':'), gobin) then
+    vim.env.PATH = gobin .. ':' .. vim.env.PATH
+end
+
 -- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
+-- See `:help vim.hl.hl_op()`
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function()
-        vim.highlight.on_yank()
+        vim.hl.hl_op()
     end,
     group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
     pattern = '*',
