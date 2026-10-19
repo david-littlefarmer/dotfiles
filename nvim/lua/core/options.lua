@@ -14,8 +14,9 @@ o.termguicolors  = true
 o.scrolloff      = 8
 o.signcolumn     = 'yes'
 o.updatetime     = 50
+o.timeoutlen     = 300
 o.colorcolumn    = '200'
-o.clipboard      = "unnamed,unnamedplus"
+o.clipboard      = 'unnamed,unnamedplus'
 o.mouse          = 'a'
 o.breakindent    = true
 o.undofile       = true
@@ -23,8 +24,7 @@ o.ignorecase     = true
 o.smartcase      = true
 o.completeopt    = 'menuone,noselect'
 
-vim.cmd('filetype plugin on')
-
+vim.g.mapleader = ' '
 
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -36,14 +36,9 @@ if gobin ~= '' and not vim.tbl_contains(vim.split(vim.env.PATH or '', ':'), gobi
     vim.env.PATH = gobin .. ':' .. vim.env.PATH
 end
 
--- [[ Highlight on yank ]]
--- See `:help vim.hl.hl_op()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.hl.hl_op()
-    end,
-    group = vim.api.nvim_create_augroup('YankHighlight', { clear = true }),
-    pattern = '*',
+vim.diagnostic.config({
+    virtual_text = true,
+    underline = true,
+    update_in_insert = true,
+    severity_sort = true,
 })
-
-vim.cmd('autocmd User TelescopePreviewerLoaded setlocal number')
