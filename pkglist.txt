@@ -7,6 +7,7 @@ beekeeper-studio-bin
 bitwarden
 bsp-layout
 bspwm
+python-xlib
 btop
 chromium
 clipit

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 killall -q polybar
-while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+while pgrep -u "$(id -u)" -x polybar >/dev/null; do sleep 1; done
 
 if [ $(uname -n) = 'lf-pc' ]; then
     polybar lfccmbr-pc-HDMI-A-0 &
@@ -12,6 +12,8 @@ if [ $(uname -n) = 'lf-t14g1' ]; then
 fi
 
 if [ $(uname -n) = 'kevin' ]; then
+    MONITOR=$(xrandr --query | awk '$2 == "connected" && $3 == "primary" {print $1; exit}')
+    export MONITOR
     polybar lfccmbr-kevin-eDP1-0 &
 fi
 

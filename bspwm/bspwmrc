@@ -52,8 +52,10 @@ if [ $(uname -n) = 'lf-t14g1' ]; then
 fi
 
 if [ $(uname -n) = 'kevin' ]; then
-    xrandr eDP --mode 1920x1080 --pos 0x0 --rotate normal
-    bspc monitor eDP-1 -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7
+    # The watcher also applies the layout at startup and preserves desktops.
+    mkdir -p "${XDG_STATE_HOME:-$HOME/.local/state}/bspwm"
+    /usr/bin/python3 "$HOME/.config/bspwm/displays.py" --watch \
+        >> "${XDG_STATE_HOME:-$HOME/.local/state}/bspwm/displays.log" 2>&1 &
 fi
 
 if [ $(uname -n) = 'lf-x200' ]; then
@@ -62,7 +64,10 @@ if [ $(uname -n) = 'lf-x200' ]; then
 fi
 
 # LAUNCH PROGRAMS
-~/.config/polybar/launch.sh &
+# On kevin the display handler launches Polybar after switching outputs.
+if [ "$(uname -n)" != 'kevin' ]; then
+    ~/.config/polybar/launch.sh &
+fi
 
 pgrep -x sxhkd >/dev/null || sxhkd &
 
